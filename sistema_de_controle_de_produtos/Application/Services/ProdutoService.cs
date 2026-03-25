@@ -34,11 +34,6 @@ namespace sistema_de_controle_de_produtos.Application.Services
             {
                 l[0].exibirTodos(l);
             }
-            else
-            {
-                Console.WriteLine("A lista não possui nenhum dados.");
-            }
-
         }
     }
 }
