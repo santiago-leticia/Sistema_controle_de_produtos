@@ -17,9 +17,9 @@ namespace sistema_de_controle_de_produtos.Infrastruture.Persistence
 
         public IEnumerable<Produto> Buscar()
         {
-            
             return produtos;
         }
+
 
     }
 }

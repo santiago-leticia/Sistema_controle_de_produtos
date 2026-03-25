@@ -23,19 +23,21 @@ namespace sistema_de_controle_de_produtos.Application.Services
             _produtoRepository.Adicionar(p);
         }
 
-        public decimal QiualMaiorValor()
+        //Lista
+        public void ListagemProduto()
         {
-            var produto = _produtoRepository.Buscar();
-            decimal maiorvalor = -1;
+            var produtos = _produtoRepository.Buscar();
 
-            foreach (var item in produto)
+            List <Produto> listos = new List<Produto>(produtos);
+            if (listos.Count > 0)
             {
-                if (item.custoFinal() > maiorvalor)
-                {
-                    maiorvalor = item.custoFinal();
-                }
+                listos[0].exibirTodos(listos);
             }
-            return maiorvalor;
+            else
+            {
+                Console.WriteLine("A lista não possui nenhum dados.");
+            }
+
         }
     }
 }

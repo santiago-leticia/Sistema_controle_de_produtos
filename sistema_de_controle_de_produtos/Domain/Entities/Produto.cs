@@ -2,6 +2,7 @@
 using sistema_de_controle_de_produtos.Infrastruture.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 
 namespace sistema_de_controle_de_produtos.Domain.Entities
@@ -12,10 +13,6 @@ namespace sistema_de_controle_de_produtos.Domain.Entities
         private decimal Preco_unitario { get; set; }
         private int Qut_estoque {  get; set; }
         private decimal Desconto { get; set; }
-
-
-
-
 
         //Construtor
         public Produto(string nome_produto, decimal preco_unitario, int qut_estoque, decimal desconto)
@@ -33,38 +30,56 @@ namespace sistema_de_controle_de_produtos.Domain.Entities
 
         public decimal custoFinal()
         {
+
             decimal CustoTotal = custoTotal();
-            return CustoTotal - (CustoTotal * (Desconto / 100));
+            if (CustoTotal > 5000)
+            {
+                return CustoTotal - (CustoTotal * (Desconto / 100));
+            }
+            else
+            {
+                return CustoTotal;
+            }
         }
 
         //Exisbir os valore
         public void exibirTodos(List<Produto> l)
         {
-
             for (int i = 0; i < l.Count; i++)
             {
 
-                if (l[i].Desconto >= 0)
+                if (l[i].custoTotal() > 5000)
                 {
-                    Console.WriteLine($"Produto {i}:" +
+                    Console.WriteLine(
                     $"\nNome: {l[i].Nome_Produto}" +
                     $"\nPreço Unitário: {l[i].Preco_unitario}" +
                     $"\nQuantidade: {l[i].Qut_estoque}" +
-                    $"\nCusto Total: {l[i].custoTotal}" +
-                    $"\nSem desconto aplicado." +
-                    $"\nCusto final: {l[i].custoTotal}");
+                    $"\nCusto Total: {l[i].custoTotal().ToString("F2")}" +
+                    $"\nDesconto Aplicado: {l[i].Desconto}%" +
+                    $"\nCusto Final: {l[i].custoFinal().ToString("F2")}");
                 }
                 else
                 {
-                    Console.WriteLine($"Produto {i}:" +
+                    Console.WriteLine(
                     $"\nNome: {l[i].Nome_Produto}" +
                     $"\nPreço Unitário: {l[i].Preco_unitario}" +
                     $"\nQuantidade: {l[i].Qut_estoque}" +
-                    $"\nCusto Total: {l[i].custoTotal}" +
-                    $"\nDesconto Aplicado: {l[i].Desconto}" +
-                    $"\nCusto Final: {l[i].custoFinal}");
+                    $"\nCusto Total: {l[i].custoTotal().ToString("F2")}" +
+                    $"\nSem desconto aplicado." +
+                    $"\nCusto final: {l[i].custoFinal().ToString("F2")}");
                 }
             }
+            decimal maiorValorPossivel = -1;
+            string nm_Produto = null;
+            for (int i = 0;i < l.Count; i++)
+            {
+                if(l[i].custoFinal() > maiorValorPossivel)
+                {
+                    maiorValorPossivel = l[i].custoFinal();
+                    nm_Produto = l[i].Nome_Produto;
+                }
+            }
+            Console.WriteLine($"O produto com maior custo final é: {nm_Produto}");
         }
     }
 }
