@@ -10,11 +10,13 @@ namespace sistema_de_controle_de_produtos.Infrastruture.Persistence
     {
         private readonly List<Produto> produtos = new();
 
+        //Adicionar informacoes na lista
         public void Adicionar(Produto produto)
         {
             produtos.Add(produto);
         }
 
+        //Buscar Informacao da lista
         public IEnumerable<Produto> Buscar()
         {
             return produtos;

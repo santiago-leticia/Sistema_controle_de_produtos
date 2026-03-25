@@ -16,6 +16,7 @@ namespace sistema_de_controle_de_produtos.Application.Services
             _produtoRepository = produtoRepository;
         }
 
+        //cadastrar Produto
         public void CadastrarProduto(string nome_Produto, 
             decimal preco_unitario, int qut_estoque, decimal desconto)
         {
@@ -28,10 +29,10 @@ namespace sistema_de_controle_de_produtos.Application.Services
         {
             var produtos = _produtoRepository.Buscar();
 
-            List <Produto> listos = new List<Produto>(produtos);
-            if (listos.Count > 0)
+            List <Produto> l = new List<Produto>(produtos);
+            if (l.Count > 0)
             {
-                listos[0].exibirTodos(listos);
+                l[0].exibirTodos(l);
             }
             else
             {

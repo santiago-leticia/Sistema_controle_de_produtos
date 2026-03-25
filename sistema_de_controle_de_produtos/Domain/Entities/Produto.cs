@@ -69,7 +69,7 @@ namespace sistema_de_controle_de_produtos.Domain.Entities
                     $"\nCusto final: {l[i].custoFinal().ToString("F2")}");
                 }
             }
-            decimal maiorValorPossivel = -1;
+            decimal maiorValorPossivel = 0;
             string nm_Produto = null;
             for (int i = 0;i < l.Count; i++)
             {
